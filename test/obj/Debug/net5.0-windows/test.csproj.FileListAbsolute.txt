@@ -22,3 +22,5 @@ C:\Users\Bohdan\OneDrive\Рабочий стол\DCT_test_Shchokin_Bohdan\test\o
 C:\Users\Bohdan\OneDrive\Рабочий стол\DCT_test_Shchokin_Bohdan\test\obj\Debug\net5.0-windows\test.genruntimeconfig.cache
 C:\Users\Bohdan\OneDrive\Рабочий стол\DCT_test_Shchokin_Bohdan\test\obj\Debug\net5.0-windows\Views\MainWindow.g.cs
 C:\Users\Bohdan\OneDrive\Рабочий стол\DCT_test_Shchokin_Bohdan\test\obj\Debug\net5.0-windows\Views\MainWindow.baml
+C:\Users\Bohdan\OneDrive\Рабочий стол\DCT_test_Shchokin_Bohdan\test\obj\Debug\net5.0-windows\Views\DetailsWindow.g.cs
+C:\Users\Bohdan\OneDrive\Рабочий стол\DCT_test_Shchokin_Bohdan\test\obj\Debug\net5.0-windows\Views\DetailsWindow.baml

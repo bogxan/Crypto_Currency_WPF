@@ -17,10 +17,10 @@ namespace test.Views
 {
     public partial class DetailsWindow : Window
     {
-        public DetailsWindow()
+        public DetailsWindow(string choosedId)
         {
             InitializeComponent();
-            DataContext = new DetailsViewModel();
+            DataContext = new DetailsViewModel(choosedId);
         }
     }
 }

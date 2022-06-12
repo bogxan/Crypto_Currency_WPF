@@ -1,12 +1,160 @@
 ﻿<Window x:Class="test.Views.DetailsWindow"
+        x:Name="DetailCrypto"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:test.Views"
         mc:Ignorable="d"
-        Title="DetailsWindow" Height="450" Width="800">
+        Title="DetailsWindow" Height="800" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200px"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40px"></RowDefinition>
+            <RowDefinition Height="40px"></RowDefinition>
+            <RowDefinition Height="100px"></RowDefinition>
+            <RowDefinition Height="40px"></RowDefinition>
+            <RowDefinition Height="40px"></RowDefinition>
+            <RowDefinition Height="40px"></RowDefinition>
+            <RowDefinition Height="40px"></RowDefinition>
+            <RowDefinition Height="40px"></RowDefinition>
+            <RowDefinition Height="40px"></RowDefinition>
+            <RowDefinition Height="40px"></RowDefinition>
+            <RowDefinition Height="40px"></RowDefinition>
+            <RowDefinition Height="200px"></RowDefinition>
+            <RowDefinition Height="90px"></RowDefinition>
+        </Grid.RowDefinitions>
+        <DataGrid x:Name="dataGrid" 
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Top"
+                  Width="750px"
+                  Height="200px"
+                  SelectionMode="Single"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False" 
+                  HorizontalGridLinesBrush="DarkGray"
+                  RowBackground="LightGray" 
+                  AlternatingRowBackground="White"
+                  Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2"
+                  ItemsSource="{Binding ListQuotes}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" 
+                                    Binding="{Binding Path=Name}" 
+                                    Width="150" />
+                <DataGridTextColumn Header="Price" 
+                                    Binding="{Binding Path=Quote.Price}" 
+                                    Width="150" />
+                <DataGridTextColumn Header="Volume" 
+                                    Binding="{Binding Path=Quote.Volume_24h}" 
+                                    Width="150" />
+                <DataGridTextColumn Header="Market caption" 
+                                    Binding="{Binding Path=Quote.Market_Cap}" 
+                                    Width="150" />
+                <DataGridTextColumn Header="Fully diluted market cap" 
+                                    Binding="{Binding Path=Quote.Fully_Diluted_Market_Cap}" 
+                                    Width="150" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock Grid.Row="0" 
+                   Grid.Column="0" 
+                   Margin="5px">Id:</TextBlock>
+        <TextBox Grid.Row="0" 
+                 Grid.Column="1" 
+                 Margin="5px" 
+                 IsReadOnly="True" 
+                 Text="{Binding Path = SelectedCrypto.Asset_Id}"></TextBox>
+        <TextBlock Grid.Row="1" 
+                   Grid.Column="0" 
+                   Margin="5px">Name:</TextBlock>
+        <TextBox Grid.Row="1" 
+                 Grid.Column="1" 
+                 Margin="5px" 
+                 IsReadOnly="True" 
+                 Text="{Binding Path = SelectedCrypto.Name}"></TextBox>
+        <TextBlock Grid.Row="2" 
+                   Grid.Column="0" 
+                   Margin="5px">Description:</TextBlock>
+        <TextBox Height="100px" 
+                 TextWrapping="Wrap" 
+                 Grid.Row="2" 
+                 Grid.Column="1" 
+                 Margin="5px" 
+                 IsReadOnly="True" 
+                 Text="{Binding Path = SelectedCrypto.Description}"></TextBox>
+        <TextBlock Grid.Row="3" 
+                   Grid.Column="0" 
+                   Margin="5px">Price:</TextBlock>
+        <TextBox Grid.Row="3" 
+                 Grid.Column="1" 
+                 Margin="5px" 
+                 IsReadOnly="True" 
+                 Text="{Binding Path = SelectedCrypto.Price}"></TextBox>
+        <TextBlock Grid.Row="4" 
+                   Grid.Column="0" 
+                   Margin="5px">Volume by 24 hours:</TextBlock>
+        <TextBox Grid.Row="4" 
+                 Grid.Column="1" 
+                 Margin="5px" 
+                 IsReadOnly="True" 
+                 Text="{Binding Path = SelectedCrypto.Volume_24h}"></TextBox>
+        <TextBlock Grid.Row="5" 
+                   Grid.Column="0" 
+                   Margin="5px">Changing by 1 hours:</TextBlock>
+        <TextBox Grid.Row="5" 
+                 Grid.Column="1" 
+                 Margin="5px" 
+                 IsReadOnly="True" 
+                 Text="{Binding Path = SelectedCrypto.Change_1h}"></TextBox>
+        <TextBlock Grid.Row="6" 
+                   Grid.Column="0" 
+                   Margin="5px">Changing by 24 hours:</TextBlock>
+        <TextBox Grid.Row="6" 
+                 Grid.Column="1" 
+                 Margin="5px" 
+                 IsReadOnly="True" 
+                 Text="{Binding Path = SelectedCrypto.Change_24h}"></TextBox>
+        <TextBlock Grid.Row="7" 
+                   Grid.Column="0" 
+                   Margin="5px">Changing by 7 days:</TextBlock>
+        <TextBox Grid.Row="7" 
+                 Grid.Column="1" 
+                 Margin="5px" 
+                 IsReadOnly="True" 
+                 Text="{Binding Path = SelectedCrypto.Change_7d}"></TextBox>
+        <TextBlock Grid.Row="8" 
+                   Grid.Column="0"
+                   Margin="5px">Total supply:</TextBlock>
+        <TextBox Grid.Row="8" 
+                 Grid.Column="1" 
+                 Margin="5px" 
+                 IsReadOnly="True" 
+                 Text="{Binding Path = SelectedCrypto.Total_supply}"></TextBox>
+        <TextBlock Grid.Row="9" 
+                   Grid.Column="0" 
+                   Margin="5px">Circulating supply:</TextBlock>
+        <TextBox Grid.Row="9" 
+                 Grid.Column="1" 
+                 Margin="5px" 
+                 IsReadOnly="True" 
+                 Text="{Binding Path = SelectedCrypto.Circulating_supply}"></TextBox>
+        <TextBlock Grid.Row="10" 
+                   Grid.Column="0" 
+                   Margin="5px">Max supply:</TextBlock>
+        <TextBox Grid.Row="10" 
+                 Grid.Column="1" 
+                 Margin="5px" 
+                 IsReadOnly="True" 
+                 Text="{Binding Path = SelectedCrypto.Max_supply}"></TextBox>
+        <Button Command="{Binding ExitCommand}" 
+                Grid.Column="0" 
+                Grid.Row="13" 
+                Grid.ColumnSpan="2" 
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Center" 
+                Width="200px" 
+                Height="50px">&lt;- to main page</Button>
     </Grid>
 </Window>

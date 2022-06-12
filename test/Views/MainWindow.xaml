@@ -15,25 +15,22 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel Height="100px" 
-                    Orientation="Horizontal" 
-                    HorizontalAlignment="Center">
-            <TextBox Width="280px"
+        <TextBox Width="200px"
                      Name="srchTb"
+                     Text="{Binding SrchWrd}"
+                     HorizontalAlignment="Right"
                      Height="30px" 
+                     Grid.Row="0"
+                     Grid.Column="0"
                      Margin="10px 10px 10px 10px"></TextBox>
-            <Button x:Name="btnSrch" 
+        <Button x:Name="btnSrch" 
                     Command="{Binding SearchCommand}"
                     CommandParameter="{Binding srchTb}"
-                    Width="70px" Height="30px" 
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    HorizontalAlignment="Left"
+                    Width="200px" Height="30px" 
                     Margin="10px 10px 10px 10px">Search</Button>
-        </StackPanel>
-        <Button x:Name="btnConvert" 
-                Command="{Binding ConvertCommand}" 
-                Grid.Column="1" 
-                Grid.Row="0" 
-                Height="30px" 
-                Width="200px">Convert</Button>
         <DataGrid SelectedItem="{Binding SelectedCrypto}" 
                   x:Name="dataGrid" 
                   HorizontalAlignment="Center"
@@ -42,12 +39,12 @@
                   Height="330px"
                   SelectionMode="Single"
                   IsReadOnly="True"
-                  AutoGenerateColumns="False" 
+                  AutoGenerateColumns="True"
                   HorizontalGridLinesBrush="DarkGray"
                   RowBackground="LightGray" 
                   AlternatingRowBackground="White"
                   Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                  ItemsSource="{Binding dataGrid}">
+                  ItemsSource="{Binding dataGrid, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.InputBindings>
                 <MouseBinding
                     MouseAction="LeftDoubleClick"

@@ -21,8 +21,21 @@ namespace test.Models
         private decimal _total_supply = -1;
         private decimal _circulating_supply = -1;
         private decimal _max_supply = -1;
+        private Quote _quote = new Quote();
         private DateTime _created_at = new DateTime();
         private DateTime _updated_at = new DateTime();
+        public Quote Quote
+        {
+            get => _quote;
+            set
+            {
+                if (!value.Equals(_quote))
+                {
+                    _quote = value;
+                    OnPropertyChanged(nameof(Quote));
+                }
+            }
+        }
         public DateTime Created_At
         {
             get => _created_at;
