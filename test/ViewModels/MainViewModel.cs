@@ -18,9 +18,39 @@ namespace test.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public ObservableCollection<Crypto> myList { get; set; }
-        public ObservableCollection<Crypto> dataGrid { get; set; }
-        private string _srchwrd;
+        public void OnPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+        private ObservableCollection<Crypto> _cryptos;
+        public ObservableCollection<Crypto> Cryptos
+        {
+            get { return _cryptos; }
+            set
+            {
+                _cryptos = value;
+                OnPropertyChanged("CryptosList");
+            }
+        }
+        private ListCollectionView _view;
+        public ICollectionView View
+        {
+            get { return _view; }
+        }
+        private string _TextSearch;
+        public string TextSearch
+        {
+            get { return _TextSearch; }
+            set
+            {
+                _TextSearch = value;
+                OnPropertyChanged("TextSearch");
+                View.Refresh();
+            }
+        }
         private Crypto _selectedCrypto;
         public Crypto SelectedCrypto
         {
@@ -34,54 +64,31 @@ namespace test.ViewModels
                 }
             }
         }
-        public string SrchWrd
-        {
-            get=> _srchwrd;
-            set
-            {
-                if (value != _srchwrd)
-                {
-                    _srchwrd = value;
-                    OnPropertyChanged(nameof(SrchWrd));
-                }
-            }
-        }
         public MainViewModel()
         {
-            myList = GetData();
-            dataGrid = new ObservableCollection<Crypto>(myList.OrderByDescending(x => x.Price).Take(10));
+            Cryptos = new ObservableCollection<Crypto>(GetData());
+            _view = new ListCollectionView(_cryptos);
+            Console.WriteLine(_view.Count);
+            _view.Filter = Filter;
         }
-        public ObservableCollection<Crypto> GetData()
+        public List<Crypto> GetData()
         {
             string url = "https://www.cryptingup.com/api/assets";
             string json = new WebClient().DownloadString(url);
             var res = JsonConvert.DeserializeObject<ListCryptos>(json);
-            return res.Assets;
+            return res.Assets.ToList();
         }
-        private ProcessCommand _searchCommand;
-        public ProcessCommand SearchCommand => _searchCommand ?? (_searchCommand = new ProcessCommand(obj => {
-            if (!string.IsNullOrEmpty(SrchWrd))
-            {
-                dataGrid.Clear();
-                dataGrid = new ObservableCollection<Crypto>(myList.Where(x => x.Name.ToLower().Contains(SrchWrd.ToLower())|| x.Asset_Id.ToLower().Contains(SrchWrd.ToLower())).OrderByDescending(x => x.Price).ToList());
-                CollectionViewSource.GetDefaultView(dataGrid).Refresh();
-            }
+        private bool Filter(object item)
+        {
+            if (String.IsNullOrEmpty(TextSearch))
+                return true;
             else
-            {
-                dataGrid.Clear();
-                dataGrid = new ObservableCollection<Crypto>(myList.OrderByDescending(x => x.Price).Take(10));
-                CollectionViewSource.GetDefaultView(dataGrid).Refresh();
-            }
-        }));
+                return ((item as Crypto).Name.IndexOf(TextSearch, StringComparison.OrdinalIgnoreCase) >= 0 || (item as Crypto).Asset_Id.IndexOf(TextSearch, StringComparison.OrdinalIgnoreCase) >= 0);
+        }
         private ProcessCommand _detailsCommand;
         public ProcessCommand DetailsCommand => _detailsCommand ?? (_detailsCommand = new ProcessCommand(obj => {
-            Crypto choosenCrypto = SelectedCrypto;
-            DetailsWindow detWind = new DetailsWindow(choosenCrypto.Asset_Id);
+            DetailsWindow detWind = new DetailsWindow(SelectedCrypto.Asset_Id);
             detWind.ShowDialog();
         }));
-        private void OnPropertyChanged(string propName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-        }
     }
 }
